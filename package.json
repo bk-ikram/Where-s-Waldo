@@ -1,0 +1,21 @@
+{
+  "name": "where-s-waldo",
+  "version": "1.0.0",
+  "description": "Submission for the Where's Waldo Project on The Odin Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bk-ikram/Where-s-Waldo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bk-ikram/Where-s-Waldo/issues"
+  },
+  "homepage": "https://github.com/bk-ikram/Where-s-Waldo#readme"
+}
