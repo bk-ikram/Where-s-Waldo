@@ -1,0 +1,46 @@
+#sidebar{
+    grid-area: sidebar;
+    background-color: darkslategray;
+    width: 250px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0;
+    height: 100vh;
+    box-sizing: border-box;
+
+}
+
+@media (max-width: 480px) {
+  #sidebar { 
+    width: 150px;
+    padding: 20px 0;
+    }
+}
+
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+}
+
+li{
+    display: flex;
+    flex-direction: column;
+}
+
+.characterImg{
+    width: 100px;
+    height: 100px;
+}
+
+li img{
+    height: 100%;
+    width: 100%;
+}

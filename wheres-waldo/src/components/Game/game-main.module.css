@@ -1,0 +1,38 @@
+
+#gameContainer{
+    display: grid;
+    gap: 0px;
+    width: 100%;
+    height: 100vh;
+    grid-template-areas: "main sidebar";
+}
+
+#gameMain{
+    grid-area: main;
+    line-height: 0;
+    height: 100%;
+    cursor: pointer;
+    overflow: auto;
+}
+
+#gameMapImg{
+    display: block;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: none;
+}
+
+@media (max-width: 480px) {
+  #gameMapImg { 
+    height: auto;
+    width: auto;
+    overflow: scroll;
+    }
+
+
+    #gameContainer{
+    grid-column: 1fr 150px;
+    }
+}
