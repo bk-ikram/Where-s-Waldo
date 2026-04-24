@@ -9,6 +9,12 @@ const getRandomElements = (arr, n) => {
   return shuffled.slice(0, n); // Take first n elements
 };
 
+const getCharacters = (n) =>{
+    const chars = getRandomElements(characters,n);
+    //Add starting status for each character
+    return chars.map( c => ({...c, found: false}));
+}
+
 function getImageCursorCoords(e){
     const x = e.offsetX || e.nativeEvent.offsetX;
     const y = e.offsetY || e.nativeEvent.offsetY;
@@ -20,7 +26,7 @@ function getImageCursorCoords(e){
 
 export default function Game({status, startGame}){
     const [ targetBox, setTargetBox ] = useState({});
-    const [ selectedChars ] = useState(() => getRandomElements(characters,3));
+    const [ selectedChars, setSelectedChars ] = useState(() => getCharacters(3));
 
     function handleImageClick(e){
         console.log("handler clicked");
@@ -31,6 +37,13 @@ export default function Game({status, startGame}){
         return;
     }
     
+    function setTargetFound(id){
+        setSelectedChars(prev => 
+            prev.map( c => c.id === id ? {...c, found: true } : c)
+        )
+    }
+    //check end condition, stop timer, update db entry
+
     return (
         <div id={styles.gameContainer}>
             <div id={styles.gameMain}>
@@ -50,11 +63,13 @@ export default function Game({status, startGame}){
                     }}
                 />
                 }
-                {/* targetBox?.x &&
+                { targetBox?.x &&
                 <SelectionMenu 
                     characters={selectedChars}
+                    targetBox = {targetBox}
+                    setTargetFound = {setTargetFound}
                 />
-                */}
+                }
 
             </div>
             <GameSideBar
