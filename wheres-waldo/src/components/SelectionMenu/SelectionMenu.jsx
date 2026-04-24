@@ -40,7 +40,7 @@ export function SelectionMenu({characters, targetBox, setTargetFound }){
         >
             {characters.map( c => 
                 <SelectionItem 
-                    url = {c.file} 
+                    url = {c.url} 
                     id = {c.id}
                     setTargetFound={setTargetFound}
                     targetBox={targetBox}

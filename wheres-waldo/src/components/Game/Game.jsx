@@ -1,15 +1,17 @@
 import GameSideBar from "../GameSideBar/GameSideBar"
 import styles from "./game-main.module.css";
-import characters from "../../characters.js";
 import { useState, useEffect } from "react";
 import { SelectionMenu } from "../SelectionMenu/SelectionMenu.jsx";
+import { getCharacters as getCharactersAPI} from "../../api/requests.js";
+
 
 const getRandomElements = (arr, n) => {
   const shuffled = [...arr].sort(() => 0.5 - Math.random()); // Simple shuffle
   return shuffled.slice(0, n); // Take first n elements
 };
 
-const getCharacters = (n) =>{
+const getCharacters = async (n) =>{
+    const characters = await getCharactersAPI();
     const chars = getRandomElements(characters,n);
     //Add starting status for each character
     return chars.map( c => ({...c, found: false}));
@@ -24,9 +26,18 @@ function getImageCursorCoords(e){
 
 
 
-export default function Game({status, startGame}){
+export default function Game({status, startGame, timeElapsed}){
     const [ targetBox, setTargetBox ] = useState({});
-    const [ selectedChars, setSelectedChars ] = useState(() => getCharacters(3));
+    const [ selectedChars, setSelectedChars ] = useState([]);
+
+
+    useEffect(() => {
+        async function load() {
+            const chars = await getCharacters(3);
+            setSelectedChars(chars);
+        }
+        load();
+    }, []);
 
     function handleImageClick(e){
         console.log("handler clicked");
@@ -74,6 +85,7 @@ export default function Game({status, startGame}){
             </div>
             <GameSideBar
             characters = {selectedChars} 
+            timeElapsed = {timeElapsed}
             />
         </div>
     )

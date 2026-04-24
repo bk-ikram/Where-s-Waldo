@@ -1,0 +1,13 @@
+/* modal.module.css */
+.modal {
+    border: none;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+}
+
+/* this is how you style the backdrop with a <dialog> */
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}

@@ -1,22 +1,18 @@
 import { prisma } from "../lib/prisma.js" ;
-/*
-async function getPosts(isPublic){
-    return prisma.post.findMany({
-        where: {
-            ...( isPublic ? { published : true } : {} )
-        },
-        include: {
-            user: {
-                select: {
-                    userName: true
-                }
-            },
-            comments: true,
-        }
-    });
+
+async function getCharactersRepo(){
+    return prisma.character.findMany();
 }
-*/
+
+async function createScore(displayName){
+    return prisma.score.create({
+        data: {
+            displayName: displayName
+        }
+    })
+}
 
 export { 
-
+    getCharactersRepo,
+    createScore,
  };

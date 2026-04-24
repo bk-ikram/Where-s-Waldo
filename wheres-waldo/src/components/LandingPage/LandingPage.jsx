@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Game from "../Game/Game";
-//import Instructions from "../Instructions/Instructions"
+import Instructions from "../Instructions/Instructions"
+import Modal from "../Modal/Modal"
 //import Scoreboard from "../Scoreboard/Scoreboard"
 
 
@@ -11,6 +12,25 @@ export default function LandingPage (){
     //  1 = Game in progress
     //  2 = Game has ended
     const [status, setStatus] = useState(0);
+    const [ scoreid, setScoreid ] = useState();
+    const [isOpen, setIsOpen] = useState(true);
+    const [ startTime, setStartTime ] = useState();
+    const [ timeElapsed, setTimeElapsed] = useState();
+
+    useEffect(() => {
+        console.log("timer effect fired");
+        if(!startTime) return;
+
+        function updateTimer(){
+            if(!startTime) return;
+            const now = new Date();
+            const start = new Date(startTime);
+            const milisecs = Math.floor((now-start));
+            setTimeElapsed(milisecs);
+        }
+        const intervalID = setInterval(updateTimer,100);
+        return () => clearInterval(intervalID);
+    },[startTime]);
 
     function startGame(){
         return setStatus(1);
@@ -25,15 +45,21 @@ export default function LandingPage (){
             <Game
             status = {status}
             endGame = {endGame}
+            timeElapsed ={timeElapsed}
 
             />
-            {/*{ status === 0
-                && <Instructions 
-                    startGame = {startGame}
-                    />
+            { status === 0
+                && <Modal isOpen={isOpen}>
+                        <Instructions 
+                            startGame = {startGame}
+                            setIsOpen = {setIsOpen}
+                            setScoreid = {setScoreid}
+                            setStartTime = {setStartTime}
+                        />
+                    </Modal>
             }
 
-            { status === 2
+            {/*{ status === 2
                 && <Scoreboard 
                     />
             }*/}
