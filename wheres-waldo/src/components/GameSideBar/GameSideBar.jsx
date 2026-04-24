@@ -1,21 +1,16 @@
 import styles from "./game-sidebar.module.css";
-import characters from "../../characters.js";
-
-const getRandomElements = (arr, n) => {
-  const shuffled = [...arr].sort(() => 0.5 - Math.random()); // Simple shuffle
-  return shuffled.slice(0, n); // Take first n elements
-};
 
 
-export default function GameSideBar({}){
-    const selectedChars = getRandomElements(characters,3);
+
+export default function GameSideBar({characters}){
+    
     return (
         <div id={styles.sidebar}>
             <h2 id={styles.timer}>
                 00:00:00
             </h2>
             <ul id={styles.characters}>
-                { selectedChars.map( c => 
+                { characters.map( c => 
                     <li key = {c.id}>
                         <div className={styles.characterImg}>
                             <img src ={c.file} />
