@@ -31,7 +31,8 @@ async function postCharacterVerification (req, res){
 
 async function updateScore(req, res){
     const scoreid = Number(req?.body?.id);
-    return await saveScoreEndTime(scoreid);
+    const score = await saveScoreEndTime(scoreid)
+    res.json(score) ;
 }
 
 export {

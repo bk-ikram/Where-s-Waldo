@@ -50,9 +50,8 @@ export default function LandingPage (){
     async function endGame(){
         try{
             //send to server and await
-        const response = await saveGameEnd(scoreid);
-        setStatus(2);
-        console.log("setStatus(2) called");
+            const response = await saveGameEnd(scoreid);
+            setStatus(2);
         }
         catch(err){
             console.error("endGame failed:", err);
