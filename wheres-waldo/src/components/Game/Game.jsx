@@ -25,7 +25,7 @@ function getImageCursorCoords(e){
 
 
 
-export default function Game({status, endGame, timeElapsed}){
+export default function Game({endGame, timeElapsed}){
     const [ targetBox, setTargetBox ] = useState({});
     const [ selectedChars, setSelectedChars ] = useState([]);
 

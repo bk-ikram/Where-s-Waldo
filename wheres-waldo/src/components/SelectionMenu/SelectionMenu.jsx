@@ -36,8 +36,6 @@ function SelectionItem({id, url, targetBox, setCharacterFound}){
 export function SelectionMenu({characters, targetBox, setCharacterFound }){
     return (
         <ul id={styles.selectionMenu}
-            top={targetBox.x}
-            right={targetBox.y - 60}
             style={{
                         top: targetBox.y - 130,
                         left: targetBox.x -100

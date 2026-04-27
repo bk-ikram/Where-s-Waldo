@@ -15,7 +15,7 @@ export default function LandingPage (){
     //  1 = Game in progress
     //  2 = Game has ended
     const [status, setStatus] = useState(0);
-    const [isOpen, setIsOpen] = useState(true);
+    //score holds the current game record
     const [ score, setScore ] = useState({});
     const [ timeElapsed, setTimeElapsed] = useState();
 
@@ -61,22 +61,20 @@ export default function LandingPage (){
     return (
         <>
             <Game
-            status = {status}
             endGame = {endGame}
             timeElapsed ={timeElapsed}
 
             />
             { status === 0
-                && <Modal isOpen={isOpen}>
+                && <Modal>
                         <Instructions 
                             startGame = {startGame}
-                            setIsOpen = {setIsOpen}
                         />
                     </Modal>
             }
 
             { status === 2
-                && <Modal isOpen={isOpen}>
+                && <Modal>
                         <Scoreboard 
                             score = {score}
                         />

@@ -30,7 +30,7 @@ export default function ScoreBoard({score}){
                 {topScores.map( s => 
                     <li key={s.id}
                         style= {{
-                            color: isOwnScoreInTop5 ? 'yellow' : ''
+                            color: s.id === score?.id ? 'yellow' : ''
                         }}
                     >
                         <span>{s.displayName}</span>

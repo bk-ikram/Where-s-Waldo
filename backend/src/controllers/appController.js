@@ -37,12 +37,10 @@ async function updateScore(req, res){
 }
 
 async function getScores(req, res){
-    console.log("parameters are ",req?.query);
     const sortValue = req?.query?.sort;
     const limit = Number(req?.query?.limit);
 
     const scores = await getSortedLimitedScores(sortValue,limit);
-    console.log("Ther returned scores are",scores);
     res.json(scores);
 
 }
