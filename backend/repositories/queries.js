@@ -18,8 +18,20 @@ async function getCharacterCoords(id){
     });
 }
 
+async function saveScoreEndTime(id){
+    return prisma.score.update({
+        where: {
+            id: id
+        },
+        data: {
+            endTime: new Date(),
+        }
+    })
+}
+
 export { 
     getCharactersRepo,
     createScore,
     getCharacterCoords,
+    saveScoreEndTime
  };

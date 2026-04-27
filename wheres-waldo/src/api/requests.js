@@ -18,8 +18,17 @@ async function verifyCharacterCoords(x, y, id){
     });
 }
 
+async function saveGameEnd(id){
+    console.log("the id received in the request is",id);
+    return apiFetch("/api/score",{
+        method: "PATCH",
+        body: JSON.stringify({id})
+    })
+}
+
 export {
     getCharacters,
     saveGameStart,
-    verifyCharacterCoords
+    verifyCharacterCoords,
+    saveGameEnd
 };

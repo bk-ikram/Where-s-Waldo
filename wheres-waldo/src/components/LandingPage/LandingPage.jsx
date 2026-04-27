@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import Game from "../Game/Game";
 import Instructions from "../Instructions/Instructions"
 import Modal from "../Modal/Modal"
+import { saveGameStart,
+        saveGameEnd
+ } from "../../api/requests";
 //import Scoreboard from "../Scoreboard/Scoreboard"
 
 
@@ -18,7 +21,12 @@ export default function LandingPage (){
     const [ timeElapsed, setTimeElapsed] = useState();
 
     useEffect(() => {
-        if(!startTime) return;
+        console.log("status changed to:", status);
+    }, [status]);
+
+
+    useEffect(() => {
+        if(status !== 1) return;
 
         function updateTimer(){
             if(!startTime) return;
@@ -29,14 +37,26 @@ export default function LandingPage (){
         }
         const intervalID = setInterval(updateTimer,100);
         return () => clearInterval(intervalID);
-    },[startTime]);
+    },[startTime, status]);
 
-    function startGame(){
+    async function startGame(formJson){
+        //send to server and await
+        const response = await saveGameStart(formJson);
+        setScoreid(response?.id);
+        setStartTime(response?.startTime);
         return setStatus(1);
     }
 
-    function endGame(){
-        return setStatus(2);
+    async function endGame(){
+        try{
+            //send to server and await
+        const response = await saveGameEnd(scoreid);
+        setStatus(2);
+        console.log("setStatus(2) called");
+        }
+        catch(err){
+            console.error("endGame failed:", err);
+        }
     }
     
     return (
@@ -52,8 +72,6 @@ export default function LandingPage (){
                         <Instructions 
                             startGame = {startGame}
                             setIsOpen = {setIsOpen}
-                            setScoreid = {setScoreid}
-                            setStartTime = {setStartTime}
                         />
                     </Modal>
             }

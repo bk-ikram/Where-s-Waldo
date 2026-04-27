@@ -25,10 +25,9 @@ function getImageCursorCoords(e){
 
 
 
-export default function Game({status, startGame, timeElapsed}){
+export default function Game({status, endGame, timeElapsed}){
     const [ targetBox, setTargetBox ] = useState({});
     const [ selectedChars, setSelectedChars ] = useState([]);
-
 
     useEffect(() => {
         async function load() {
@@ -37,6 +36,15 @@ export default function Game({status, startGame, timeElapsed}){
         }
         load();
     }, []);
+
+    useEffect(() => {
+        ( async () => {
+            if (checkEndGameConditions())
+                await endGame();
+        })();
+        
+    }, [selectedChars]);
+
 
     function handleImageClick(e){
         setTargetBox(prev => prev?.x
@@ -52,6 +60,11 @@ export default function Game({status, startGame, timeElapsed}){
         )
     }
     //check end condition, stop timer, update db entry
+    function checkEndGameConditions(){
+        return selectedChars.length > 0 && 
+                selectedChars.every(c => c.found);
+    }
+
 
     return (
         <div id={styles.gameContainer}>

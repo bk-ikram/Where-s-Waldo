@@ -1,7 +1,8 @@
 import { 
     getCharactersRepo,
     createScore,
-    getCharacterCoords
+    getCharacterCoords,
+    saveScoreEndTime
  } from "../../repositories/queries.js";
 
 
@@ -28,9 +29,14 @@ async function postCharacterVerification (req, res){
     res.json(isMatch);
 }
 
+async function updateScore(req, res){
+    const scoreid = Number(req?.body?.id);
+    return await saveScoreEndTime(scoreid);
+}
 
 export {
     getCharacters,
     postScore,
     postCharacterVerification,
+    updateScore,
 }

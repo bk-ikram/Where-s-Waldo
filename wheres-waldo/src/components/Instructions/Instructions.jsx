@@ -1,6 +1,5 @@
-import { saveGameStart } from "../../api/requests";
 
-export default function Instructions({startGame, setIsOpen, setScoreid, setStartTime}){
+export default function Instructions({startGame, setIsOpen}){
 //to change component to modal dialog
     async function handleSubmit(e){
         e.preventDefault();
@@ -8,12 +7,8 @@ export default function Instructions({startGame, setIsOpen, setScoreid, setStart
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
         try{
-            //send to server and await
-            const response = await saveGameStart(formJson);
-            setScoreid(response?.id);
-            setStartTime(response?.startTime);
+            await startGame(formJson);
             setIsOpen(false);
-            startGame();
         }
         catch(err){
             console.error(err)

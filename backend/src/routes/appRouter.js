@@ -4,7 +4,8 @@ const appRouter = Router();
 import  { 
     getCharacters,
     postScore,
-    postCharacterVerification
+    postCharacterVerification,
+    updateScore
  } from "../controllers/appController.js";
 
 
@@ -27,6 +28,11 @@ appRouter.post("/api/score",
 //verify character location
 appRouter.post("/api/character/verify",
                 postCharacterVerification
+)
+
+//update score record with end time
+appRouter.patch("/api/score",
+                updateScore
 )
 
 
