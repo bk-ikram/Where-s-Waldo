@@ -18,7 +18,6 @@ export default function LandingPage (){
     const [ timeElapsed, setTimeElapsed] = useState();
 
     useEffect(() => {
-        console.log("timer effect fired");
         if(!startTime) return;
 
         function updateTimer(){

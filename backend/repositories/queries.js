@@ -12,7 +12,14 @@ async function createScore(displayName){
     })
 }
 
+async function getCharacterCoords(id){
+    return prisma.character.findUnique({
+        where: { id: id },
+    });
+}
+
 export { 
     getCharactersRepo,
     createScore,
+    getCharacterCoords,
  };

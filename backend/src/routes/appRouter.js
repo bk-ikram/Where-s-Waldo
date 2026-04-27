@@ -3,7 +3,8 @@ import { Router } from 'express';
 const appRouter = Router();
 import  { 
     getCharacters,
-    postScore
+    postScore,
+    postCharacterVerification
  } from "../controllers/appController.js";
 
 
@@ -18,10 +19,16 @@ appRouter.get("/api/characters",
                 getCharacters
 )
 
-//create score
+//create score record
 appRouter.post("/api/score",
                 postScore
 )
+
+//verify character location
+appRouter.post("/api/character/verify",
+                postCharacterVerification
+)
+
 
 
 export default appRouter;

@@ -1,15 +1,9 @@
 import { 
     getCharactersRepo,
-    createScore
+    createScore,
+    getCharacterCoords
  } from "../../repositories/queries.js";
 
- /*
-async function postsGet( req, res){
-    const isPublic = req.user ? false : true;
-    const posts = await getPosts(isPublic);
-    res.json(posts);
-};
-*/
 
 async function getCharacters( req, res) {
     const characters =  await getCharactersRepo();
@@ -22,8 +16,21 @@ async function postScore( req, res) {
     res.json(score);
 }
 
+async function postCharacterVerification (req, res){
+    const {x, y, id} = req.body;
+    const character = await getCharacterCoords(Number(id));
+
+    const ref_x = character?.x;
+    const ref_y = character?.y;
+    //a tolerance of 50 pixels is set for each coordinate.
+    const isMatch = Math.abs(ref_x - Number(x)) <= 50
+                    && Math.abs(ref_y - Number(y)) <= 50;
+    res.json(isMatch);
+}
+
 
 export {
     getCharacters,
     postScore,
+    postCharacterVerification,
 }

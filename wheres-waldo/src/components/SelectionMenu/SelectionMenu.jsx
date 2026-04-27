@@ -1,15 +1,20 @@
 import { useState } from "react";
 import styles from "./selection-menu.module.css";
+import { verifyCharacterCoords } from "../../api/requests.js";
 
-function SelectionItem({id, url, targetBox, setTargetFound}){
+function SelectionItem({id, url, targetBox, setCharacterFound}){
     const [ selectionResult, setSelectionResult ] = useState(null);
 
     
-    function handleClick(e){
+    async function handleClick(e){
         //check if selection is correct. using targetbox coords and id
         //depending on answer set SelectionResult, set character as found.
-        setTargetFound(id);
-        setSelectionResult(true);
+        const result = await verifyCharacterCoords(targetBox?.x,
+                                                targetBox?.y,
+                                                id);
+        if(result)
+            setCharacterFound(id);
+        setSelectionResult(result);
     }
     const borderColor = selectionResult             ? 'green'   : 
                         selectionResult === false   ? 'red'     :  'white';
@@ -28,7 +33,7 @@ function SelectionItem({id, url, targetBox, setTargetFound}){
     )
 }
 
-export function SelectionMenu({characters, targetBox, setTargetFound }){
+export function SelectionMenu({characters, targetBox, setCharacterFound }){
     return (
         <ul id={styles.selectionMenu}
             top={targetBox.x}
@@ -40,9 +45,10 @@ export function SelectionMenu({characters, targetBox, setTargetFound }){
         >
             {characters.map( c => 
                 <SelectionItem 
+                    key= {c.id}
                     url = {c.url} 
                     id = {c.id}
-                    setTargetFound={setTargetFound}
+                    setCharacterFound={setCharacterFound}
                     targetBox={targetBox}
                 />
             )}

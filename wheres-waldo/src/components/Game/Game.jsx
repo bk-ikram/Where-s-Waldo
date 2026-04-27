@@ -20,7 +20,6 @@ const getCharacters = async (n) =>{
 function getImageCursorCoords(e){
     const x = e.offsetX || e.nativeEvent.offsetX;
     const y = e.offsetY || e.nativeEvent.offsetY;
-    console.log(`X: ${x}, Y: ${y}`);
     return { x, y };
 }
 
@@ -40,7 +39,6 @@ export default function Game({status, startGame, timeElapsed}){
     }, []);
 
     function handleImageClick(e){
-        console.log("handler clicked");
         setTargetBox(prev => prev?.x
                                 ? {}
                                 : getImageCursorCoords(e)
@@ -48,7 +46,7 @@ export default function Game({status, startGame, timeElapsed}){
         return;
     }
     
-    function setTargetFound(id){
+    function setCharacterFound(id){
         setSelectedChars(prev => 
             prev.map( c => c.id === id ? {...c, found: true } : c)
         )
@@ -76,15 +74,15 @@ export default function Game({status, startGame, timeElapsed}){
                 }
                 { targetBox?.x &&
                 <SelectionMenu 
-                    characters={selectedChars}
+                    characters={selectedChars.filter(c => !c.found)}
                     targetBox = {targetBox}
-                    setTargetFound = {setTargetFound}
+                    setCharacterFound = {setCharacterFound}
                 />
                 }
 
             </div>
             <GameSideBar
-            characters = {selectedChars} 
+            characters = {selectedChars.filter(c => !c.found)} 
             timeElapsed = {timeElapsed}
             />
         </div>

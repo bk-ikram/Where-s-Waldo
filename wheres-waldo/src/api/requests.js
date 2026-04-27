@@ -4,18 +4,6 @@ async function getCharacters(){
     return apiFetch("/api/characters");
 }
 
-
-/*
-async function postComment(apiFetch, formJson){
-    const { id } = formJson
-    return apiFetch(`/api/post/${id}/comment`, {
-        method: "POST",
-        body: JSON.stringify(formJson)
-    });
-}
-
-*/
-
 async function saveGameStart(formJson){
     return apiFetch("/api/score",{
         method: "POST",
@@ -23,8 +11,15 @@ async function saveGameStart(formJson){
     })
 }
 
+async function verifyCharacterCoords(x, y, id){
+    return apiFetch(`/api/character/verify`, {
+        method: "POST",
+        body: JSON.stringify({x, y, id})
+    });
+}
 
 export {
     getCharacters,
-    saveGameStart
+    saveGameStart,
+    verifyCharacterCoords
 };

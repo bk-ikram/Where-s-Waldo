@@ -1,6 +1,8 @@
 import styles from "./game-sidebar.module.css";
 
 function formatMilliseconds(ms) {
+    if(!ms)
+        return "00:00.00";
   // Extract units
   const milliseconds = ms % 1000;
   const totalSeconds = Math.floor(ms / 1000);
