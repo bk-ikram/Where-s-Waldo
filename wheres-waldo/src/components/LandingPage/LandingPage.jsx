@@ -5,7 +5,7 @@ import Modal from "../Modal/Modal"
 import { saveGameStart,
         saveGameEnd
  } from "../../api/requests";
-//import Scoreboard from "../Scoreboard/Scoreboard"
+import Scoreboard from "../Scoreboard/Scoreboard"
 
 
 
@@ -15,9 +15,8 @@ export default function LandingPage (){
     //  1 = Game in progress
     //  2 = Game has ended
     const [status, setStatus] = useState(0);
-    const [ scoreid, setScoreid ] = useState();
     const [isOpen, setIsOpen] = useState(true);
-    const [ startTime, setStartTime ] = useState();
+    const [ score, setScore ] = useState({});
     const [ timeElapsed, setTimeElapsed] = useState();
 
     useEffect(() => {
@@ -29,6 +28,7 @@ export default function LandingPage (){
         if(status !== 1) return;
 
         function updateTimer(){
+            const startTime = score?.startTime;
             if(!startTime) return;
             const now = new Date();
             const start = new Date(startTime);
@@ -37,20 +37,20 @@ export default function LandingPage (){
         }
         const intervalID = setInterval(updateTimer,100);
         return () => clearInterval(intervalID);
-    },[startTime, status]);
+    },[score, status]);
 
     async function startGame(formJson){
         //send to server and await
         const response = await saveGameStart(formJson);
-        setScoreid(response?.id);
-        setStartTime(response?.startTime);
+        setScore(response);
         return setStatus(1);
     }
 
     async function endGame(){
         try{
             //send to server and await
-            const response = await saveGameEnd(scoreid);
+            const response = await saveGameEnd(score?.id);
+            setScore(response);
             setStatus(2);
         }
         catch(err){
@@ -75,10 +75,14 @@ export default function LandingPage (){
                     </Modal>
             }
 
-            {/*{ status === 2
-                && <Scoreboard 
-                    />
-            }*/}
+            { status === 2
+                && <Modal isOpen={isOpen}>
+                        <Scoreboard 
+                            score = {score}
+                        />
+                    </Modal>
+            }
+
             
         </>
     )

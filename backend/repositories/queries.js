@@ -39,9 +39,25 @@ async function saveScoreEndTime(id){
     })
 }
 
+
+async function getSortedLimitedScores(sortValue,limit){
+    return prisma.score.findMany({
+        where: {
+            duration: {
+                gt: 0,
+            }
+        },
+        orderBy: {
+            [sortValue]: 'asc',
+        },
+        take: limit
+    })
+}
+
 export { 
     getCharactersRepo,
     createScore,
     getCharacterCoords,
-    saveScoreEndTime
+    saveScoreEndTime,
+    getSortedLimitedScores,
  };

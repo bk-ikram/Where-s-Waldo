@@ -8,7 +8,6 @@ export default function Instructions({startGame, setIsOpen}){
         const formJson = Object.fromEntries(formData.entries());
         try{
             await startGame(formJson);
-            setIsOpen(false);
         }
         catch(err){
             console.error(err)

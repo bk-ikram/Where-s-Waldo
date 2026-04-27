@@ -5,7 +5,8 @@ import  {
     getCharacters,
     postScore,
     postCharacterVerification,
-    updateScore
+    updateScore,
+    getScores
  } from "../controllers/appController.js";
 
 
@@ -35,6 +36,8 @@ appRouter.patch("/api/score",
                 updateScore
 )
 
-
+appRouter.get("/api/scores",
+                getScores
+)
 
 export default appRouter;

@@ -19,16 +19,20 @@ async function verifyCharacterCoords(x, y, id){
 }
 
 async function saveGameEnd(id){
-    console.log("the id received in the request is",id);
     return apiFetch("/api/score",{
         method: "PATCH",
         body: JSON.stringify({id})
     })
 }
 
+async function getTop5Scores(){
+    return apiFetch("/api/scores?sort=duration&limit=5");
+}
+
 export {
     getCharacters,
     saveGameStart,
     verifyCharacterCoords,
-    saveGameEnd
+    saveGameEnd,
+    getTop5Scores
 };
